@@ -1,0 +1,88 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"net/http"
+	"strconv"
+
+	"github.com/msdoshack/mycodedairy/internal/models"
+)
+
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
+
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+
+	snippets, err := app.snippetss.GetLatest()
+	if err !=nil {
+		app.serverError(w,err)
+		return
+	}
+
+	data := app.newTemplateData(r)
+
+	data.Snippets = snippets
+
+
+	// data := &templateData{
+	// 	Snippets: snippets,
+	// }
+
+	app.render(w,http.StatusOK,"home.html", data)
+
+}
+
+
+
+func (app *application) singleSnippets(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+
+	if err != nil {
+		app.notFound(w)
+		return
+	}
+
+	snippet, err := app.snippetss.Get(id)
+
+	if err != nil {
+		if errors.Is(err,models.ErrorNoRecord){
+			app.notFound(w)
+		}else{
+			app.serverError(w,err)
+		}
+	}
+
+	data := app.newTemplateData(r)
+	data.Snippet=snippet
+
+	// data := &templateData {
+	// 	Snippet: snippet,
+	// }
+	
+	app.render(w,http.StatusOK,"view.html",data)
+}
+
+func (app *application) addSnippet(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		w.Header().Set("Allow", http.MethodPost)
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	title := "Alice package added"
+	content := "it's working fine"
+	expires := 10
+
+	id, err := app.snippetss.Insert(title,content,expires)
+
+	if err != nil {
+		app.serverError(w,err)
+		return
+	}
+
+	http.Redirect(w,r,fmt.Sprintf("/snippet?id=%d",id),http.StatusSeeOther)
+
+}

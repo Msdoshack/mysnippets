@@ -1,0 +1,43 @@
+{{define "footer"}}
+
+<div class="footer-wrapper">
+  <div class="footer-links-wrapper">
+    <h2>
+      Quick links
+      <img src="../../static/img/arrow-down-3.gif" alt="quicklinkimg" />
+    </h2>
+    {{if .IsAuthenticated}}
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/profile/{{.AuthenticatedUserId}}">Profile</a>
+      <a href="/user/snippets">MySnippets</a>
+      <a href="/help">Help</a>
+      <a href="/about">About</a>
+    </div>
+    {{else}}
+    <div class="footer-links">
+      <a href="/login">Login</a>
+      <a href="/sign-up">Register</a>
+      <a href="/forgot-password">Forgot Password</a>
+      <a href="/help">Help</a>
+      <a href="/about">About</a>
+    </div>
+    {{end}}
+  </div>
+
+  <div class="copyright">
+    <p>
+      Developed by
+      <a href="https://" target="_blank" rel="noopener noreferrer"
+        >Moses Solomon</a
+      >
+    </p>
+
+    <p>
+      Powered by
+      <a href="https://golang.org/">Go </a>
+      @{{.CurrentYear}}
+    </p>
+  </div>
+</div>
+{{end}}

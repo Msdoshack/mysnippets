@@ -1,0 +1,22 @@
+{{define "title"}}verify reset code{{end}} {{define "main"}}
+<div class="user-sign">
+  <h1 class="title">Forgot Password</h1>
+  <form action="/verify-reset" method="POST" onsubmit="disableButton()">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+    <input type="hidden" name="userId" value="{{.Form.UserID}}" />
+    <div class="data">
+      <label>Enter the 6 digit code sent to registered email:</label>
+      {{with .Form.FieldErrors.resetCode}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input type="text" name="resetCode" placeholder="Reset code" />
+    </div>
+
+    {{range .Form.NonFieldErrors}}
+    <label class="error" style="text-align: center">{{.}}</label>
+    {{end}}
+
+    <button class="button" id="submit-button" type="submit">Submit</button>
+  </form>
+</div>
+{{end}}

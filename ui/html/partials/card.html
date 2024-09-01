@@ -1,0 +1,20 @@
+{{define "card"}}
+<a href="/snippet/{{.ID}}">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">{{.Title}}</h4>
+      <p>Language: <span>{{.Language}}</span></p>
+    </div>
+
+    <pre> 
+        <code class="language-{{.Language}}">
+        {{.Content}}
+         </code>
+    </pre>
+    <div class="card-footer">
+      <span>Creator: {{.Name}}</span>
+      <time>{{humanDate .Created}}</time>
+    </div>
+  </div>
+</a>
+{{end}}

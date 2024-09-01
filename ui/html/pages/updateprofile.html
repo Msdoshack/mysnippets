@@ -1,0 +1,71 @@
+{{define "title"}}Update Profile{{end}} {{define "main"}}
+
+<div class="profile-wrapper">
+  <div class="profile">
+    <h1 class="title">Update Profile</h1>
+    <form
+      action="/update-profile/{{.User.ID}}"
+      method="POST"
+      class="p-container"
+      onsubmit="disableButton()"
+    >
+      <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+      <div class="p-input-wrapper">
+        <label>First Name</label>
+        <div>
+          <input
+            value="{{.User.FirstName}}"
+            name="firstName"
+            autofocus
+            spellcheck="false"
+          />
+          {{with .Form.FieldErrors.firstName}}
+          <p class="error" style="margin-top: 5px; margin-bottom: 0">{{.}}</p>
+          {{end}}
+        </div>
+      </div>
+
+      <div class="p-input-wrapper">
+        <label>Last Name</label>
+        <div>
+          <input
+            value="{{.User.LastName}}"
+            name="lastName"
+            spellcheck="false"
+          />
+          {{with .Form.FieldErrors.lastName}}
+          <p class="error" style="margin-top: 5px; margin-bottom: 0">{{.}}</p>
+          {{end}}
+        </div>
+      </div>
+
+      <div class="p-input-wrapper">
+        <label>Email</label>
+        <div>
+          <input value="{{.User.Email}}" name="email" spellcheck="false" />
+          {{with .Form.FieldErrors.email}}
+          <p class="error" style="margin-top: 5px; margin-bottom: 0">{{.}}</p>
+          {{end}}
+        </div>
+      </div>
+
+      {{with .Form.NonFieldErrors}}
+      <p class="error">{{.}}</p>
+      {{end}}
+      <div class="p-buttons">
+        <button type="submit" id="submit-button" class="b-update">
+          Update
+        </button>
+        <a
+          href="/profile/{{.User.ID}}"
+          class="a-update"
+          style="background-color: orangered"
+        >
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{{end}}

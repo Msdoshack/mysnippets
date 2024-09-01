@@ -1,0 +1,47 @@
+{{define "nav"}}
+<nav>
+  <div>
+    {{if .IsAuthenticated}}
+    <!-- Hamburger menu for mobile -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-content">
+      <a href="/">Home</a>
+      <a href="/user/snippets">MySnippets</a>
+      <a href="/profile/{{.AuthenticatedUserId}}">Profile</a>
+      <a href="/Logout">Logout</a>
+    </div>
+
+    <div class="mobile-nav-wrapper" id="mobileNav">
+      <div class="mobile-nav-content" id="mobileContent">
+        <div class="logo">
+          <a href="/">
+            <img
+              src="../static/img/codevaultlogo2.png"
+              alt="code vault logo"
+              class="logo-img"
+            />
+          </a>
+        </div>
+
+        <div class="mobile-nav">
+          <a href="/">Home</a>
+          <a href="/user/snippets">MySnippets</a>
+          <a href="/profile/{{.AuthenticatedUserId}}"> Profile</a>
+          <a href="/Logout">Logout</a>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <div class="ls-wrapper">
+      <a href="/login" class="login">Login</a>
+      <a href="/sign-up" class="sign-up">Sign up</a>
+    </div>
+    {{end}}
+  </div>
+</nav>
+{{end}}

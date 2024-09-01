@@ -1,0 +1,132 @@
+{{define "title"}}Home{{end}} {{define "main"}}
+
+<div class="home-snippet-container">
+  <button
+  onclick="window.history.back()"
+  class="go-back-btn"
+  style="margin-bottom: 20px"
+>
+  <svg
+    stroke="currentColor"
+    fill="currentColor"
+    stroke-width="0"
+    viewBox="0 0 512 512"
+    height="22px"
+    width="22px"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"
+    ></path>
+  </svg>
+  <span>Go Back </span>
+</button>
+  <div class="home-snippet-top">
+    <h2 class="ls-title">Your Snippets </h2>
+
+    <a href="/add-snippet" class="add-snippet-icon">
+      <p class="svg-wrapper">
+        <svg
+          stroke="currentColor"
+          fill="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          height="22px"
+          width="22px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+        </svg>
+      </p>
+      <span>Add New</span>
+    </a>
+  </div>
+
+  <div class="home-snippet-form-wrapper">
+    <form
+      class="home-snippet-form"
+      action="/user/search"
+      id="homeSnippetForm"
+    >
+      <div class="home-snippet-filter-wrapper">
+        <div class="input">
+          <label for="searchTerm">Search term:</label>
+          <input
+            type="text"
+            id="searchTerm"
+            name="title"
+            value="{{.Form.Title}}"
+            placeholder="Search for snippet"
+          />
+        </div>
+
+       <div>
+          <label for="language">Language:</label>
+          <select id="language" name="language">
+            <option value="">All</option>
+            {{if .Languages}}
+            {{range .Languages}}
+              <option value="{{.}}"{{ if eq . $.Form.Language}} selected {{ end }}>{{.}}</option>{{end}}
+            {{end}}
+          </select>
+        </div>
+
+        <div>
+          <label for="sort">Sort:</label>
+          <select id="language" name="sort" value="{{.Form.Sort}}">
+            <option value="DESC" {{ if eq .Form.Sort "DESC" }} selected {{ end }}>Latest</option>
+            <option value="ASC" {{ if eq .Form.Sort "ASC" }} selected {{ end }} >Oldest</option>
+          </select>
+        </div>
+        <input type="hidden" id="currentPage" name="page" value="{{.Form.Page}}" />
+      </div>
+      <div class="home-snippet-btns-wrapper">
+        <a href="/user/search" class="home-snippet-c-btn">
+          Clear filter
+        </a>
+        <button class="home-snippet-s-btn" type="submit" onclick="resetPage()">Search</button>
+      </div>
+    </form>
+  </div>
+
+  {{if .Snippets}}
+  <div>
+    <h2 id="searchResult" class="search-result"> {{.SnippetCount}} </h2>
+    <div class="card-container">
+      {{range.Snippets}} {{template "card" .}} {{end}}
+    </div>
+    <div class="home-snippet-pagination">
+      <!-- Pagination buttons -->
+      <form action="/user/search" method="get">
+        <input type="hidden" name="title" value="{{.Form.Title}}" />
+        <input type="hidden" name="language" value="{{.Form.Language}}" />
+        <input type="hidden" name="sort" value="{{.Form.Sort}}" />
+        <!-- Decrement page for "Prev" button, but not below 1 -->
+        <input
+          type="hidden"
+          name="page"
+          value='{{max (prev .Form.Page) "1"}}'
+        />
+        <button type="submit" {{if eq .Form.Page "1" }} disabled {{end}}>
+          Prev
+        </button>
+      </form>
+
+      <form action="/user/search" method="get">
+        <input type="hidden" name="title" value="{{.Form.Title}}" />
+        <input type="hidden" name="language" value="{{.Form.Language}}" />
+        <input type="hidden" name="sort" value="{{.Form.Sort}}" />
+        <!-- Increment page for "Next" button -->
+        <input type="hidden" name="page" value="{{next .Form.Page}}" />
+        <button type="submit" {{if lt .SnippetCount 6}}disabled{{end}}>
+          Next
+        </button>
+      </form>
+    </div>
+    {{else}}
+    <p>No snippet found</p>
+    {{end}}
+  </div>
+</div>
+{{end}}

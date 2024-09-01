@@ -1,0 +1,159 @@
+{{define "title"}}Create a New Snippet{{end}} {{define "main"}}
+
+<div class="add-snippet">
+  <button
+    onclick="window.history.back()"
+    class="go-back-btn"
+    style="align-self: self-start"
+  >
+    <svg
+      stroke="currentColor"
+      fill="currentColor"
+      stroke-width="0"
+      viewBox="0 0 512 512"
+      height="22px"
+      width="22px"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"
+      ></path>
+    </svg>
+    <span>Go Back </span>
+  </button>
+  <h4>Add Snippet</h4>
+  <form
+    class="add-snippet-form"
+    action="/add-snippet"
+    method="POST"
+    id="form"
+    onsubmit="disableButton()"
+  >
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+    <div class="option">
+      <label>Title:</label>
+
+      <!-- Use the `with` action to render the value of .Form.FieldErrors.title if it is not empty. -->
+      {{with .Form.FieldErrors.title}}
+      <label class="error">{{.}}</label>
+      {{end}}
+
+      <input type="text" name="title" value="{{.Form.Title}}" />
+    </div>
+
+    <div class="option">
+      <label>Content:</label>
+      {{with .Form.FieldErrors.content}}
+      <label class="error">{{.}}</label>
+      {{end}}
+
+      <textarea id="c" type="text" name="content">{{.Form.Content}}</textarea>
+    </div>
+
+    <div class="visibility">
+      <label for="visibility">Visibility:</label>
+      {{with .Form.FieldErrors.visibility}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <select name="visibility" id="visibility">
+        <option value="private">Private</option>
+        <option value="public">Public</option>
+      </select>
+    </div>
+
+    <div class="language-container">
+      <label>Language:</label>
+      {{with .Form.FieldErrors.language}}
+      <label class="error">{{.}}</label>
+      {{end}}
+
+      <div class="language">
+        <div class="language-radio">
+          <input type="radio" name="language" value="html" />Html
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="css" />Css
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="htmx" />Htmx
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="php" />Php
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="jsx" />Jsx
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="javascript" />JavaScript
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="typescript" />TypeScript
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="go" />Go
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="python" />Python
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="java" />Java
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="c" />C
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="cpp" />C++
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="csharp" />C#
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="swift" />Swift
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="ruby" />Ruby
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="kotlin" />Kotlin
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="r" />R
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="rust" />Rust
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="dart" />Dart
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="perl" />Perl
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="matlab" />Matlab
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="haskell" />Haskell
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="scala" />Scala
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="sql" />SQL
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="bash" />Bash
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="powershell" />Powershell
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button class="button" id="submit-button" type="submit">
+        Add snippet
+      </button>
+    </div>
+  </form>
+</div>
+{{end}}

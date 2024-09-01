@@ -1,0 +1,38 @@
+{{define "title"}} Sign in{{end}} {{define "main"}}
+
+<div class="user-sign">
+  <h1 class="title">Login</h1>
+  <form action="/login" method="POST" onsubmit="disableButton()">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+    <div class="data">
+      <label>Email:</label>
+      {{with .Form.FieldErrors.email}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input type="email" name="email" placeholder="Email" />
+    </div>
+
+    <div class="data">
+      <label>Password:</label>
+
+      {{with .Form.FieldErrors.password}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input type="password" name="password" placeholder="Password" />
+    </div>
+
+    {{range .Form.NonFieldErrors}}
+    <label class="error" style="text-align: center">{{.}}</label>
+    {{end}}
+
+    <button class="button" id="submit-button" type="submit">Login</button>
+
+    <div class="u-redir">
+      <p>don't have an account? <a href="/sign-up">Register </a></p>
+    </div>
+    <div class="u-redir">
+      <p><a href="/forgot-password">forgotten password? </a></p>
+    </div>
+  </form>
+</div>
+{{end}}

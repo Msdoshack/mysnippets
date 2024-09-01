@@ -1,0 +1,78 @@
+{{define "title"}} Sign up{{end}} {{define "main"}}
+
+<div class="user-sign">
+  <h1 class="title">Sign Up</h1>
+  <form action="/sign-up" method="POST" onsubmit="disableButton()">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+    <div class="data">
+      <label>First name:</label>
+      {{with .Form.FieldErrors.firstName}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input
+        type="text"
+        placeholder="Enter your first name"
+        name="firstName"
+        value="{{.Form.FirstName}}"
+      />
+    </div>
+    <div class="data">
+      <label>Last name:</label>
+      {{with .Form.FieldErrors.lastName}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input
+        type="text"
+        placeholder="Enter your last name"
+        name="lastName"
+        value="{{.Form.LastName}}"
+      />
+    </div>
+
+    <div class="data">
+      <label>Email:</label>
+
+      {{with .Form.FieldErrors.email}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input
+        type="text"
+        placeholder="Enter your Email"
+        name="email"
+        value="{{.Form.Email}}"
+      />
+    </div>
+
+    <div class="data">
+      <label>Password:</label>
+      {{with .Form.FieldErrors.password}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input
+        type="password"
+        placeholder="Enter your password"
+        name="password"
+      />
+    </div>
+
+    <div class="data">
+      <label>Re-type Password:</label>
+      {{with .Form.FieldErrors.retypePassword}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <input
+        type="password"
+        placeholder="Re-type your password"
+        name="retypePassword"
+      />
+    </div>
+
+    <button class="button" id="submit-button" type="submit">Sign up</button>
+
+    <div class="u-redir">
+      <p>Already have an account? <a href="/login">Login </a></p>
+    </div>
+  </form>
+</div>
+
+{{end}}

@@ -1,0 +1,192 @@
+{{define "title"}}Update Snippet{{end}} {{define "main"}}
+<div class="add-snippet">
+  <button
+  onclick="window.history.back()"
+  class="go-back-btn"
+  style="align-self: self-start"
+>
+  <svg
+    stroke="currentColor"
+    fill="currentColor"
+    stroke-width="0"
+    viewBox="0 0 512 512"
+    height="22px"
+    width="22px"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"
+    ></path>
+  </svg>
+  <span>Go Back </span>
+</button>
+  <h4>Update Snippet</h4>
+  
+  <form class="add-snippet-form" action="/update-snippet/{{.Snippet.ID}}" method="POST" onsubmit="disableButton()">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+    <input type="text" name="userId" hidden value="{{.Snippet.UserId}}">
+    <div class="option">
+      <label>Title:</label>
+      <!-- Use the `with` action to render the value of .Form.FieldErrors.title if it is not empty. -->
+      {{with .Form.FieldErrors.title}}
+      <label class="error">{{.}}</label>
+      {{end}}
+
+      <input type="text" name="title" value="{{.Snippet.Title}}" />
+    </div>
+
+    <div class="option">
+      <label>Content:</label>
+      {{with .Form.FieldErrors.content}}
+      <label class="error">{{.}}</label>
+      {{end}}
+
+      <textarea id="c" name="content">{{.Snippet.Content}}</textarea>
+    </div>
+
+    <div class="visibility">
+      <label for="visibility">Visibility:</label>
+      {{with .Form.FieldErrors.visibility}}
+      <label class="error">{{.}}</label>
+      {{end}}
+      <select name="visibility" id="visibility">
+        <option value="private" {{ if eq .Snippet.Visibility "private" }} selected {{ end }}>Private </option>
+        <option value="public" {{ if eq .Snippet.Visibility "public" }} selected {{ end }}>Public </option>
+      </select>
+    </div>
+
+    <div class="language-container">
+      <label>Language:</label>
+      {{with .Form.FieldErrors.language}}
+      <label class="error">{{.}}</label>
+      {{end}}
+
+      <div class="language">
+        <div class="language-radio">
+          <input type="radio" name="language" value="html" {{ if eq
+          .Snippet.Language "html" }} checked {{ end }} />Html
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="htmx" {{ if eq
+          .Snippet.Language "htmx" }} checked {{ end }}/>Htmx
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="javascript" {{ if eq
+          .Snippet.Language "javaScript" }} checked {{ end }}/>JavaScript
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="typescript" {{ if eq
+          .Snippet.Language "typeScript" }} checked {{ end }}/>TypeScript
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="go" {{ if eq
+          .Snippet.Language "Go" }} checked {{ end }} />Go
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="python" {{ if eq
+          .Snippet.Language "python" }} checked {{ end }} />Python
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="java" {{ if eq
+          .Snippet.Language "java" }} checked {{ end }} />Java
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="c" {{ if eq
+          .Snippet.Language "c" }} checked {{ end }}/>C
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="c++" {{ if eq
+          .Snippet.Language "c++" }} checked {{ end }}/>C++
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="swift" {{ if eq
+          .Snippet.Language "swift" }} checked {{ end }}/>Swift
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="kotlin" {{ if eq
+          .Snippet.Language "kotlin" }} checked {{ end }}/>Kotlin
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="rust" {{ if eq
+          .Snippet.Language "rust" }} checked {{ end }}/>Rust
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="bash" {{ if eq
+          .Snippet.Language "bash" }} checked {{ end }} />Bash
+        </div>
+      </div>
+    </div>
+
+    <div class="expires-wrapper">
+      <label>Delete in:</label>
+      {{with .Form.FieldErrors.expires}}
+      <label class="error">{{.}}</label>
+      {{end}}
+
+      <!-- Here we use the `if` action to check if the value of the repopulated expires field equals 365. If it does, then we render the `checked` attribute so that the radio input is re-selected. -->
+      <!-- <div class="expires">
+        <div class="expires-radio">
+          <input
+            type="radio"
+            name="expires"
+            value="365"
+            {{if
+            eq
+            .Form.Expires
+            365}}
+            checked
+            {{end}}
+          />One Year
+        </div>
+
+        <div class="expires-radio">
+          <input
+            type="radio"
+            name="expires"
+            value="7"
+            {{if
+            eq
+            .Form.Expires
+            7}}
+            checked
+            {{end}}
+          />One Week
+        </div>
+
+        <div class="expires-radio">
+          <input
+            type="radio"
+            name="expires"
+            value="1"
+            {{if
+            eq
+            .Form.Expires
+            1}}
+            checked
+            {{end}}
+          />One Day
+        </div>
+
+        <div class="expires-radio">
+          <input
+            type="radio"
+            name="expires"
+            value="1"
+            {{if
+            eq
+            .Form.Expires
+            1}}
+            {{end}}
+          />infinity
+        </div>
+      </div> -->
+    </div>
+
+    <div>
+      <button class="button" id="submit-button" type="submit" >
+        Update snippet
+      </button>
+    </div>
+  </form>
+</div>
+{{end}}
