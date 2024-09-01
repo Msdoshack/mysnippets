@@ -16,7 +16,6 @@ import (
 	"github.com/alexedwards/scs/postgresstore"
 	"github.com/alexedwards/scs/v2"
 	"github.com/go-playground/form/v4"
-	"github.com/joho/godotenv"
 	"github.com/msdoshack/mycodedairy/internal/models"
 )
 
@@ -30,11 +29,11 @@ type application struct {
 	sessionManager *scs.SessionManager
 }
 
-func init() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("error loading env file")
-	}
-}
+// func init() {
+// 	if err := godotenv.Load(".env"); err != nil {
+// 		log.Fatal("error loading env file")
+// 	}
+// }
 
 func main() {
 	// CREATING CUSTOM LOG
