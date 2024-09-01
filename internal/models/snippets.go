@@ -52,7 +52,7 @@ func (m *SnippetModel) Get(id int) (*Snippet, error) {
 	stmt := `
 		SELECT 
 			snippets.id, snippets.title, snippets.content, snippets.language, snippets.visibility, snippets."userId", 
-			CONCAT(users.last_name, ' ', users.first_name) AS name, snippets.created 
+			users.full_name AS name, snippets.created 
 		FROM snippets 
 		JOIN users ON snippets."userId" = users.id 
 		WHERE snippets.id = $1
@@ -74,9 +74,6 @@ func (m *SnippetModel) Get(id int) (*Snippet, error) {
 	return s, nil
 }
 
-
-
-
 func (m *SnippetModel) GetLatest(userId, page int, title, language, sort string) ([]*Snippet, []string, error) {
 	// Base query with a CTE (Common Table Expression) to get distinct languages and snippets in one go
 	baseQuery := `
@@ -87,17 +84,18 @@ func (m *SnippetModel) GetLatest(userId, page int, title, language, sort string)
 		)
 		SELECT 
 			snippets.id, snippets.title, snippets.content, snippets.language, snippets.visibility, snippets."userId", 
-			CONCAT(users.last_name, ' ', users.first_name) AS name, 
+			users.full_name AS name, 
 			snippets.created,
 			(SELECT STRING_AGG(language, ',') FROM snippet_languages) AS languages
 		FROM snippets
 		JOIN users ON snippets."userId" = users.id
-		WHERE users.id = $2
+		WHERE users.id = $1
 	`
 
 	// Slice to store conditions dynamically
 	conditions := []string{}
-	params := []interface{}{userId, userId} // userId for both snippets and languages
+
+	params := []interface{}{userId,} // userId for both snippets and languages
 
 	// Add language condition if provided
 	if language != "" {
@@ -108,8 +106,8 @@ func (m *SnippetModel) GetLatest(userId, page int, title, language, sort string)
 	// Add title condition if provided
 	if title != "" {
 		conditions = append(conditions, "snippets.title ILIKE $"+fmt.Sprint(len(params)+1))
-		title = "%" + title + "%"
-		params = append(params, title)
+		// title = "%" + title + "%"
+		params = append(params, "%"+title+"%")
 	}
 
 	// Combine base query with dynamic conditions
@@ -172,7 +170,7 @@ func (m *SnippetModel) GetUserSnippets(id int) (SnippetByLang, error) {
 			language, 
 			visibility, 
 			"userId",
-			(users.last_name || ' ' || users.first_name) AS name, 
+			users.full_name AS name, 
 			snippets.created,
 			ROW_NUMBER() OVER (PARTITION BY language ORDER BY snippets.created DESC) AS row_num
 		FROM 
@@ -202,8 +200,9 @@ func (m *SnippetModel) GetUserSnippets(id int) (SnippetByLang, error) {
 
 	rows, err := m.DB.Query(stmt, id)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error executing query to get user snipper %w",err)
 	}
+
 	defer rows.Close()
 
 	// A map to store snippets grouped by language

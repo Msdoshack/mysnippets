@@ -10,6 +10,7 @@ import (
 	"time"
 
 	// Import the PostgreSQL driver
+
 	_ "github.com/lib/pq"
 
 	// Replace mysqlstore with pgstore
@@ -90,7 +91,7 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	infoLog.Println("Server running on port 4000")
+	infoLog.Println("Server running on port "+port)
 
 	// WITHOUT TLS CERTIFICATE
 	err = srv.ListenAndServe()

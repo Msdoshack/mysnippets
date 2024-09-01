@@ -102,9 +102,11 @@ func (m *UserModel) Insert(firstName, lastName, email, password string) error {
 		return err
 	}
 
-	stmt := `INSERT INTO users (first_name, last_name, email, hashed_password, created) VALUES($1, $2, $3, $4, NOW())`
+	fullName := firstName + " " + lastName
 
-	_, err = m.DB.Exec(stmt, firstName, lastName, email, hashedPassword)
+	stmt := `INSERT INTO users (first_name, last_name, full_name email, hashed_password, created) VALUES($1, $2, $3, $4, $5, NOW())`
+
+	_, err = m.DB.Exec(stmt, firstName, lastName, fullName, email, hashedPassword)
 	if err != nil {
 		// Check if the error is a PostgreSQL-specific error
 		var pgErr *pq.Error
