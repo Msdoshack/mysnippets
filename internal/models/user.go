@@ -104,7 +104,7 @@ func (m *UserModel) Insert(firstName, lastName, email, password string) error {
 
 	fullName := firstName + " " + lastName
 
-	stmt := `INSERT INTO users (first_name, last_name, full_name email, hashed_password, created) VALUES($1, $2, $3, $4, $5, NOW())`
+	stmt := `INSERT INTO users (first_name, last_name, full_name, email, hashed_password, created) VALUES($1, $2, $3, $4, $5, NOW())`
 
 	_, err = m.DB.Exec(stmt, firstName, lastName, fullName, email, hashedPassword)
 	if err != nil {
