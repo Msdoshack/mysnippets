@@ -112,7 +112,7 @@ func (m *UserModel) Insert(firstName, lastName, email, password string) error {
 		var pgErr *pq.Error
 		if errors.As(err, &pgErr) {
 			// Check for unique violation error
-			if pgErr.Code == "23505" && strings.Contains(pgErr.Message, "users_email_key") {
+			if pgErr.Code == "23505" && strings.Contains(pgErr.Message, "user_uc_email") {
 				return ErrDuplicateEmail
 			}
 		}
