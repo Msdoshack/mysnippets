@@ -74,8 +74,14 @@ func main() {
 		CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
 	}
 
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "4000" // Default to port 4000 if PORT is not set
+	}
+
 	srv := &http.Server{
-		Addr:         ":4000",
+		Addr:         ":"+port,
 		ErrorLog:     errLog,
 		Handler:      app.routes(),
 		TLSConfig:    tlsConfig,
@@ -87,10 +93,10 @@ func main() {
 	infoLog.Println("Server running on port 4000")
 
 	// WITHOUT TLS CERTIFICATE
-	// err = srv.ListenAndServe()
+	err = srv.ListenAndServe()
 
 	// WITH TLS CERTIFICATE
-	err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
+	// err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
 
 	if err != nil {
 		errLog.Fatal(err)
