@@ -11,7 +11,6 @@ import (
 
 	// Import the PostgreSQL driver
 
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 
 	// Replace mysqlstore with pgstore
@@ -31,11 +30,11 @@ type application struct {
 	sessionManager *scs.SessionManager
 }
 
-func init() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("error loading env file")
-	}
-}
+// func init() {
+// 	if err := godotenv.Load(".env"); err != nil {
+// 		log.Fatal("error loading env file")
+// 	}
+// }
 
 func main() {
 	// CREATING CUSTOM LOG
@@ -95,10 +94,10 @@ func main() {
 	infoLog.Println("Server running on port "+port)
 
 	// WITHOUT TLS CERTIFICATE
-	// err = srv.ListenAndServe()
+	err = srv.ListenAndServe()
 
 	// WITH TLS CERTIFICATE
-	err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
+	// err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
 
 	if err != nil {
 		errLog.Fatal(err)
@@ -106,7 +105,7 @@ func main() {
 }
 
 func openDB(dsn string) (*sql.DB, error) {
-	
+
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		return nil, err
