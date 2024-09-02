@@ -93,16 +93,23 @@ func main() {
 
 	infoLog.Println("Server running on port "+port)
 
+
+	app.hitEndPoint()
+
+
 	// WITHOUT TLS CERTIFICATE
 	err = srv.ListenAndServe()
 
 	// WITH TLS CERTIFICATE
 	// err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
 
+
 	if err != nil {
 		errLog.Fatal(err)
 	}
+
 }
+
 
 func openDB(dsn string) (*sql.DB, error) {
 
@@ -115,6 +122,8 @@ func openDB(dsn string) (*sql.DB, error) {
 	}
 	return db, nil
 }
+
+
 
 // WRITING THE LOG TO A DISK
 // go run ./cmd/web >>./temp/info.log

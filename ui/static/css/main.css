@@ -339,6 +339,7 @@ button:disabled {
   width: 350px;
   border: 2px solid lightgray;
   padding: 10px;
+  border-radius: 4px;
 }
 .home-snippet-filter-wrapper select {
   padding: 6px 2px;
@@ -938,6 +939,7 @@ code {
   outline: none;
   flex: 1;
   border: lightgray 1px solid;
+  padding: 10px;
 }
 
 .p-buttons {
@@ -1007,8 +1009,9 @@ code {
 
 .data input {
   background-color: #f3f3f4;
-  padding: 13px;
+  padding: 10px;
   border: 2px solid lightgray;
+  border-radius: 4px;
 }
 
 .user-sign .button {
@@ -1057,6 +1060,8 @@ code {
 .change-p-wrapper input {
   border: 2px solid lightgray;
   font-size: 16px;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .change-p-buttons {
@@ -1303,7 +1308,7 @@ code {
 
   /* NAVBAR RESPOSIVE STYLING */
   .nav-wrapper {
-    padding: 12px 18px;
+    padding: 12px 12px 12px 3px;
   }
 
   .logo-img {
