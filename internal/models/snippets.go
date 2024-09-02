@@ -117,6 +117,10 @@ func (m *SnippetModel) GetLatest(userId, page int, title, language, sort string)
 
 	offset := (page - 1) * 9
 
+	if sort == "" {
+		sort= "DESC"
+	}
+
 	// Add order by and limit clauses
 	baseQuery += fmt.Sprintf(" ORDER BY snippets.created %s LIMIT 9 OFFSET %d", sort, offset)
 
