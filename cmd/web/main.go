@@ -9,11 +9,8 @@ import (
 	"os"
 	"time"
 
-	// Import the PostgreSQL driver
-
 	_ "github.com/lib/pq"
 
-	// Replace mysqlstore with pgstore
 	"github.com/alexedwards/scs/postgresstore"
 	"github.com/alexedwards/scs/v2"
 	"github.com/go-playground/form/v4"
@@ -30,6 +27,7 @@ type application struct {
 	sessionManager *scs.SessionManager
 }
 
+// USED LOCALLY
 // func init() {
 // 	if err := godotenv.Load(".env"); err != nil {
 // 		log.Fatal("error loading env file")
@@ -100,7 +98,7 @@ func main() {
 	// WITHOUT TLS CERTIFICATE
 	err = srv.ListenAndServe()
 
-	// WITH TLS CERTIFICATE
+	// WITH TLS CERTIFICATE (USE ONLY LOCALLY)
 	// err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
 
 
