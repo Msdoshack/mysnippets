@@ -89,9 +89,11 @@
           name="page"
           value='{{max (prev .Form.Page) "1"}}'
         />
-        <button type="submit" id="submit-button" {{if eq .Form.Page "1" }} disabled {{end}}>
+        {{if gt .Form.Page "1" }}
+        <button type="submit" id="submit-button">
           Prev
         </button>
+        {{end}}
       </form>
 
       <form action="/" method="get" onsubmit="disableButton()">
@@ -100,9 +102,11 @@
         <input type="hidden" name="sort" value="{{.Form.Sort}}" />
         <!-- Increment page for "Next" button -->
         <input type="hidden" name="page" value="{{next .Form.Page}}" />
-        <button type="submit" id="submit-button" {{if lt .SnippetCount 9}}disabled{{end}}>
+        {{if lt .SnippetCount 9}}
+        <button type="submit" id="submit-button">
           Next
         </button>
+        {{end}}
       </form>
     </div>
     {{else}}
