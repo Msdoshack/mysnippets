@@ -439,6 +439,7 @@ button:disabled {
 .card-header .card-title {
   font-size: small;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .card-header p,
