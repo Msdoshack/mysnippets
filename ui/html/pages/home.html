@@ -100,7 +100,7 @@
         <input type="hidden" name="sort" value="{{.Form.Sort}}" />
         <!-- Increment page for "Next" button -->
         <input type="hidden" name="page" value="{{next .Form.Page}}" />
-        <button type="submit" {{if gt .SnippetCount 9}}{{else}}disabled{{end}}>
+        <button type="submit" {{if lt .SnippetCount 9}}disabled{{end}}>
           Next
         </button>
       </form>
