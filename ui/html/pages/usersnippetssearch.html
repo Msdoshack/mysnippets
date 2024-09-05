@@ -98,7 +98,7 @@
     </div>
     <div class="home-snippet-pagination">
       <!-- Pagination buttons -->
-      <form action="/user/search" method="get">
+      <form action="/user/search" method="get" onsubmit="disableButton()">
         <input type="hidden" name="title" value="{{.Form.Title}}" />
         <input type="hidden" name="language" value="{{.Form.Language}}" />
         <input type="hidden" name="sort" value="{{.Form.Sort}}" />
@@ -108,18 +108,18 @@
           name="page"
           value='{{max (prev .Form.Page) "1"}}'
         />
-        <button type="submit" {{if eq .Form.Page "1" }} disabled {{end}}>
+        <button type="submit" id="submit-button" {{if eq .Form.Page "1" }} disabled {{end}}>
           Prev
         </button>
       </form>
 
-      <form action="/user/search" method="get">
+      <form action="/user/search" method="get" onsubmit="disableButton()">
         <input type="hidden" name="title" value="{{.Form.Title}}" />
         <input type="hidden" name="language" value="{{.Form.Language}}" />
         <input type="hidden" name="sort" value="{{.Form.Sort}}" />
         <!-- Increment page for "Next" button -->
         <input type="hidden" name="page" value="{{next .Form.Page}}" />
-        <button type="submit" {{if lt .SnippetCount 9}}disabled{{end}}>
+        <button type="submit" id="submit-button" {{if lt .SnippetCount 9}}disabled{{end}}>
           Next
         </button>
       </form>
