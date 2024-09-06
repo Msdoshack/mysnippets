@@ -137,6 +137,11 @@ button:disabled {
   color: black;
   font-weight: 600;
 }
+
+.min-height {
+  min-height: calc(100vh - 258px);
+  min-height: calc(100vh - 242px);
+}
 /* END OF ADD SNIPPET ICON */
 
 .no-snippet {
@@ -277,7 +282,7 @@ button:disabled {
 /* HOME PAGE STYLING */
 .home-snippet-container {
   margin: 0 auto;
-  min-height: calc(100vh - 258px);
+  /* min-height: calc(100vh - 258px); */
 }
 .home-snippet-top {
   display: flex;
@@ -746,7 +751,7 @@ code {
 .user-snippet-container {
   width: 100%;
   margin: 0 auto;
-  min-height: calc(100vh - 258px);
+  /* min-height: calc(100vh - 258px); */
   padding: 0 30px;
   padding-bottom: 40px;
 }
@@ -804,7 +809,7 @@ code {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100dvh - 175px);
+  /* min-height: calc(100dvh - 175px); */
 }
 
 .add-snippet h4 {
@@ -893,10 +898,9 @@ code {
 /* ************************************************ */
 
 /* PROFILE PAGE */
-.profile-wrapper {
-  /* min-height: calc(100dvh - 200px); */
-  min-height: 100dvh;
-}
+/* .profile-wrapper {
+  min-height: calc(100vh - 258px);
+} */
 
 .profile {
   display: flex;
@@ -983,7 +987,7 @@ code {
 
 /* AUTH PAGE */
 .user-sign {
-  min-height: calc(100vh - 60px);
+  /* min-height: calc(100vh - 60px); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1037,7 +1041,7 @@ code {
   align-items: center;
   background-color: #f1f3f6;
   padding: 10px;
-  min-height: calc(100dvh - 200px);
+  /* min-height: calc(100dvh - 200px); */
 }
 
 .change-p-container {
@@ -1309,6 +1313,9 @@ code {
   .main {
     padding: 0;
   }
+  .min-height {
+    min-height: calc(100vh - 242px);
+  }
 
   /* NAVBAR RESPOSIVE STYLING */
   .nav-wrapper {
@@ -1336,7 +1343,7 @@ code {
   .home-snippet-container {
     padding: 0 5px;
     padding-bottom: 30px;
-    min-height: calc(100vh - 242px);
+    /* min-height: calc(100vh - 242px); */
   }
 
   .home-snippet-form {
@@ -1372,7 +1379,7 @@ code {
   /* SINGLE SNIPPET PAGE */
   .user-snippet-container {
     padding: 0 5px;
-    min-height: calc(100vh - 242px);
+    /* min-height: calc(100vh - 242px); */
   }
 
   .snippet-top {
@@ -1425,17 +1432,24 @@ code {
   /* END OF ADD PAGE RESPONSIVE STYLING */
 
   /* PROFILE PAGE RESPONSIVE STYLING */
-  .profile {
-    padding: 10px;
-  }
   .profile-wrapper {
     padding-top: 10px;
+    min-height: calc(100vh - 242px);
+  }
+
+  .profile {
+    padding: 10px;
   }
 
   .p-input-wrapper {
     padding: 0 5px;
   }
   /* END OF PROFILE PAGE RESPONSIVE STYLING */
+
+  /* SIGN-IN SIGN-UP */
+  /* .user-sign {
+    min-height: calc(100vh - 242px);
+  } */
 
   /* FOOTER RESPONSIVE STYLING */
   .footer-container {

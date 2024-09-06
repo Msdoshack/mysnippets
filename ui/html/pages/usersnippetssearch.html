@@ -1,6 +1,6 @@
 {{define "title"}}Home{{end}} {{define "main"}}
 
-<div class="home-snippet-container">
+<div class="home-snippet-container min-height">
   <button
   onclick="window.history.back()"
   class="go-back-btn"
@@ -130,7 +130,7 @@
       </form>
     </div>
     {{else}}
-    <p>No snippet found</p>
+    <p class="min-height">No snippet found</p>
     {{end}}
   </div>
 </div>
