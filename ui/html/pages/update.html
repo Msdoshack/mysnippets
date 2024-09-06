@@ -63,123 +63,85 @@
 
       <div class="language">
         <div class="language-radio">
-          <input type="radio" name="language" value="html" {{ if eq
-          .Snippet.Language "html" }} checked {{ end }} />Html
+          <input type="radio" name="language" value="html" {{ if eq .Snippet.Language "html" }} checked {{ end }} />Html
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="htmx" {{ if eq
-          .Snippet.Language "htmx" }} checked {{ end }}/>Htmx
+          <input type="radio" name="language" value="css" {{ if eq .Snippet.Language "css" }} checked {{ end }} />Css
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="javascript" {{ if eq
-          .Snippet.Language "javaScript" }} checked {{ end }}/>JavaScript
+          <input type="radio" name="language" value="htmx" {{ if eq .Snippet.Language "htmx" }} checked {{ end }} />Htmx
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="typescript" {{ if eq
-          .Snippet.Language "typeScript" }} checked {{ end }}/>TypeScript
+          <input type="radio" name="language" value="php" {{ if eq .Snippet.Language "php" }} checked {{ end }} />Php
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="go" {{ if eq
-          .Snippet.Language "Go" }} checked {{ end }} />Go
+          <input type="radio" name="language" value="jsx" {{ if eq .Snippet.Language "jsx" }} checked {{ end }} />Jsx
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="python" {{ if eq
-          .Snippet.Language "python" }} checked {{ end }} />Python
+          <input type="radio" name="language" value="javascript" {{ if eq .Snippet.Language "javascript" }} checked {{ end }} />JavaScript
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="java" {{ if eq
-          .Snippet.Language "java" }} checked {{ end }} />Java
+          <input type="radio" name="language" value="typescript" {{ if eq .Snippet.Language "typescript" }} checked {{ end }} />TypeScript
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="c" {{ if eq
-          .Snippet.Language "c" }} checked {{ end }}/>C
+          <input type="radio" name="language" value="go" {{ if eq .Snippet.Language "go" }} checked {{ end }} />Go
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="c++" {{ if eq
-          .Snippet.Language "c++" }} checked {{ end }}/>C++
+          <input type="radio" name="language" value="python" {{ if eq .Snippet.Language "python" }} checked {{ end }} />Python
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="swift" {{ if eq
-          .Snippet.Language "swift" }} checked {{ end }}/>Swift
+          <input type="radio" name="language" value="java" {{ if eq .Snippet.Language "java" }} checked {{ end }} />Java
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="kotlin" {{ if eq
-          .Snippet.Language "kotlin" }} checked {{ end }}/>Kotlin
+          <input type="radio" name="language" value="c" {{ if eq .Snippet.Language "c" }} checked {{ end }} />C
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="rust" {{ if eq
-          .Snippet.Language "rust" }} checked {{ end }}/>Rust
+          <input type="radio" name="language" value="cpp" {{ if eq .Snippet.Language "cpp" }} checked {{ end }} />C++
         </div>
         <div class="language-radio">
-          <input type="radio" name="language" value="bash" {{ if eq
-          .Snippet.Language "bash" }} checked {{ end }} />Bash
+          <input type="radio" name="language" value="csharp" {{ if eq .Snippet.Language "csharp" }} checked {{ end }} />C#
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="swift" {{ if eq .Snippet.Language "swift" }} checked {{ end }} />Swift
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="ruby" {{ if eq .Snippet.Language "ruby" }} checked {{ end }} />Ruby
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="kotlin" {{ if eq .Snippet.Language "kotlin" }} checked {{ end }} />Kotlin
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="r" {{ if eq .Snippet.Language "r" }} checked {{ end }} />R
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="rust" {{ if eq .Snippet.Language "rust" }} checked {{ end }} />Rust
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="dart" {{ if eq .Snippet.Language "dart" }} checked {{ end }} />Dart
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="perl" {{ if eq .Snippet.Language "perl" }} checked {{ end }} />Perl
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="matlab" {{ if eq .Snippet.Language "matlab" }} checked {{ end }} />Matlab
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="haskell" {{ if eq .Snippet.Language "haskell" }} checked {{ end }} />Haskell
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="scala" {{ if eq .Snippet.Language "scala" }} checked {{ end }} />Scala
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="sql" {{ if eq .Snippet.Language "sql" }} checked {{ end }} />SQL
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="bash" {{ if eq .Snippet.Language "bash" }} checked {{ end }} />Bash
+        </div>
+        <div class="language-radio">
+          <input type="radio" name="language" value="powershell" {{ if eq .Snippet.Language "powershell" }} checked {{ end }} />Powershell
         </div>
       </div>
-    </div>
-
-    <div class="expires-wrapper">
-      <label>Delete in:</label>
-      {{with .Form.FieldErrors.expires}}
-      <label class="error">{{.}}</label>
-      {{end}}
-
-      <!-- Here we use the `if` action to check if the value of the repopulated expires field equals 365. If it does, then we render the `checked` attribute so that the radio input is re-selected. -->
-      <!-- <div class="expires">
-        <div class="expires-radio">
-          <input
-            type="radio"
-            name="expires"
-            value="365"
-            {{if
-            eq
-            .Form.Expires
-            365}}
-            checked
-            {{end}}
-          />One Year
-        </div>
-
-        <div class="expires-radio">
-          <input
-            type="radio"
-            name="expires"
-            value="7"
-            {{if
-            eq
-            .Form.Expires
-            7}}
-            checked
-            {{end}}
-          />One Week
-        </div>
-
-        <div class="expires-radio">
-          <input
-            type="radio"
-            name="expires"
-            value="1"
-            {{if
-            eq
-            .Form.Expires
-            1}}
-            checked
-            {{end}}
-          />One Day
-        </div>
-
-        <div class="expires-radio">
-          <input
-            type="radio"
-            name="expires"
-            value="1"
-            {{if
-            eq
-            .Form.Expires
-            1}}
-            {{end}}
-          />infinity
-        </div>
-      </div> -->
+      
     </div>
 
     <div>

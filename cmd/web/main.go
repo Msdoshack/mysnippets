@@ -27,7 +27,7 @@ type application struct {
 	sessionManager *scs.SessionManager
 }
 
-// USED LOCALLY
+// USE ONLY IN DEVELOPMENT
 // func init() {
 // 	if err := godotenv.Load(".env"); err != nil {
 // 		log.Fatal("error loading env file")
@@ -98,7 +98,7 @@ func main() {
 	// WITHOUT TLS CERTIFICATE
 	err = srv.ListenAndServe()
 
-	// WITH TLS CERTIFICATE (USE ONLY LOCALLY)
+	// WITH TLS CERTIFICATE (USE ONLY In Development)
 	// err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
 
 
