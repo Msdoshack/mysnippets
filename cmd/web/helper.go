@@ -12,7 +12,6 @@ import (
 
 	"github.com/go-playground/form/v4"
 	"github.com/justinas/nosurf"
-	"github.com/robfig/cron/v3"
 )
 
 func (app *application) readString(qs url.Values, key string, defaultValue string) string {
@@ -186,42 +185,44 @@ func (app *application) isAuthenticated (r *http.Request) bool {
 	return isAuthenticated
 }
 
-func(app * application) hitEndPoint () {
-	c := cron.New()
 
-	// Add a job that runs every minute
-	_, err := c.AddFunc("*/10 * * * *", func() {
-		err := fetchData()
-		if err != nil {
-			app.errorLog.Println("Failed to fetch data:", err)
-		} else {
-			app.infoLog.Println("Successfully hit endpoint")
-		}
-	})
+// CRON
+// func(app * application) hitEndPoint () {
+// 	c := cron.New()
 
-	if err != nil {
-		app.errorLog.Println("Failed to add cron job:", err)
-	}
+// 	// Add a job that runs every minute
+// 	_, err := c.AddFunc("*/10 * * * *", func() {
+// 		err := fetchData()
+// 		if err != nil {
+// 			app.errorLog.Println("Failed to fetch data:", err)
+// 		} else {
+// 			app.infoLog.Println("Successfully hit endpoint")
+// 		}
+// 	})
+
+// 	if err != nil {
+// 		app.errorLog.Println("Failed to add cron job:", err)
+// 	}
 
 
-	go func() {
-		// Start the cron scheduler in a separate goroutine
-		app.infoLog.Println("Starting scheduler")
-		c.Start()
-	}()
-}
+// 	go func() {
+// 		// Start the cron scheduler in a separate goroutine
+// 		app.infoLog.Println("Starting scheduler")
+// 		c.Start()
+// 	}()
+// }
 
-func fetchData() error {
-	resp, err := http.Get("https://mysnippets.onrender.com")
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
+// func fetchData() error {
+// 	resp, err := http.Get("https://mysnippets.onrender.com")
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer resp.Body.Close()
 
-	// Check if the response status is not OK
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("failed to fetch data, status code: %d", resp.StatusCode)
-	}
+// 	// Check if the response status is not OK
+// 	if resp.StatusCode != http.StatusOK {
+// 		return fmt.Errorf("failed to fetch data, status code: %d", resp.StatusCode)
+// 	}
 
-	return nil
-}
+// 	return nil
+// }

@@ -91,8 +91,8 @@ func main() {
 
 	infoLog.Println("Server running on port "+port)
 
-
-	app.hitEndPoint()
+	//cron service
+	// app.hitEndPoint()
 
 
 	// WITHOUT TLS CERTIFICATE
