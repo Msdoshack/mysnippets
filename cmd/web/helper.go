@@ -192,7 +192,7 @@ func(app * application) hitEndPoint () {
 	c := cron.New()
 
 	// Add a job that runs every minute
-	_, err := c.AddFunc("*/10 * * * *", func() {
+	_, err := c.AddFunc("*/14 * * * *", func() {
 		err := fetchData()
 		if err != nil {
 			app.errorLog.Println("Failed to fetch data:", err)
